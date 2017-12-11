@@ -53,7 +53,7 @@ namespace NamesCodeGenerator
             var sceneNameCode = CodeGenerator.GenerateStruct("SceneName", Property.StringName);
             Generate(outputPath, sceneNameCode, "SceneName", namespaceName);
 
-            var scenesCode = CodeGenerator.GenerateParentStaticClass("Scenes", "SceneName", NameGetter.GetScenes().ToArray());
+            var scenesCode = CodeGenerator.GenerateParentStaticClass("Scenes", "SceneName", NameGetter.GetScenes().Select(s => s.Name).ToArray());
             Generate(outputPath, scenesCode, "Scenes", namespaceName);
 
             // Generate SortingLayerName and SortingLayer
