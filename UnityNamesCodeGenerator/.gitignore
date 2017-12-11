@@ -36,4 +36,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+Assets/Generated.meta
+Assets/Generated/
 
