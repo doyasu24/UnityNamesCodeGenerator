@@ -64,7 +64,7 @@ namespace NamesCodeGenerator
             if(parameters.Count != 0)
                 parameters.Add("");
             var variables = string.Join(", ", names.Select(ConvertToVariableName).ToArray());
-            parameters.Add(indent + "public static readonly " + typeName + "[] Names = { " + variables + " };");
+            parameters.Add("public static readonly " + typeName + "[] Names = { " + variables + " };");
 
             return GenerateType(true, true, parentClassName, parameters);
         }
