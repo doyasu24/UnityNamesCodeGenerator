@@ -55,6 +55,7 @@ namespace NamesCodeGenerator
             return (int[])sortingLayerUniqueIDsProperty.GetValue(null, new object[0]);
         }
     }
+
     public struct NameWithNumber
     {
         public readonly string Name;

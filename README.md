@@ -14,27 +14,27 @@ create a EditorScript or use [SampleEditorScript](https://github.com/kado-yasuyu
 The format policy follows `Microsoft Visual Studio`
 
 ```:Layers.cs
+// Generated code by NamesCodeGenerator
 namespace Names
 {
-    // Generated code by NamesCodeGenerator
     public static class Layers
     {
         public static readonly LayerName Default = new LayerName("Default", 0);
         public static readonly LayerName TransparentFX = new LayerName("TransparentFX", 1);
-        public static readonly LayerName IgnoreRaycast = new LayerName("Ignore Raycast", 2);
+        public static readonly LayerName Ignore_Raycast = new LayerName("Ignore Raycast", 2);
         public static readonly LayerName Water = new LayerName("Water", 4);
         public static readonly LayerName UI = new LayerName("UI", 5);
 
-        public static readonly LayerName[] Names = { Default, TransparentFX, IgnoreRaycast, Water, UI };
+        public static readonly LayerName[] Names = { Default, TransparentFX, Ignore_Raycast, Water, UI };
     }
-
 }
+
 ```
 
 ```:LayerName.cs
+// Generated code by NamesCodeGenerator
 namespace Names
 {
-    // Generated code by NamesCodeGenerator
     public struct LayerName
     {
         public readonly string Name;
@@ -46,25 +46,24 @@ namespace Names
             Index = index;
         }
     }
-
 }
+
 ```
 
 or you can also generate following code.
 
 ```LayerName.cs
+// Generated code by NamesCodeGenerator
 namespace Names.Simple
 {
-    // Generated code by NamesCodeGenerator
     public static class LayerName
     {
         public const string Default = "Default";
         public const string TransparentFX = "TransparentFX";
-        public const string IgnoreRaycast = "Ignore Raycast";
+        public const string Ignore_Raycast = "Ignore Raycast";
         public const string Water = "Water";
         public const string UI = "UI";
     }
-
 }
 
 ```

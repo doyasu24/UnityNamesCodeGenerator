@@ -1,97 +1,93 @@
 ﻿using System.Linq;
-using System.IO;
+using System.Collections.Generic;
 using UnityEditor;
 
 namespace NamesCodeGenerator
 {
     public static class NamesCodeGenerator
     {
+        const string headerComment = "// Generated code by NamesCodeGenerator";
+
         public static void GenerateConstStaticClasses(string outputPath, string namespaceName = null)
         {
-            DeleteDirectoryIfExists(outputPath, true);
-            CreateDirectoryIfNotExists(outputPath);
+            CodeSerializer.ResetDirectory(outputPath);
 
-            // Generate TagName
-            var tagCode = CodeGenerator.GenerateConstClass("TagName", NameGetter.GetTags());
-            Generate(outputPath, tagCode, "TagName", namespaceName);
-
-            // Generate LayerName
-            var layerCode = CodeGenerator.GenerateConstClass("LayerName", NameGetter.GetLayers().Select(n => n.Name).ToArray());
-            Generate(outputPath, layerCode, "LayerName", namespaceName);
-
-            // Generate SceneName
-            var sceneCode = CodeGenerator.GenerateConstClass("SceneName", NameGetter.GetScenes().Select(n => n.Name).ToArray());
-            Generate(outputPath, sceneCode, "SceneName", namespaceName);
-
-            // Generate SortingLayerName
-            var sortingLayerCode = CodeGenerator.GenerateConstClass("SortingLayerName", NameGetter.GetSortingLayers().Select(n => n.Name).ToArray());
-            Generate(outputPath, sortingLayerCode, "SortingLayerName", namespaceName);
+            GenerateConstStaticClass(outputPath, namespaceName, "TagName", NameGetter.GetTags());
+            GenerateConstStaticClass(outputPath, namespaceName, "LayerName", NameGetter.GetLayers().Select(l => l.Name).ToArray());
+            GenerateConstStaticClass(outputPath, namespaceName, "SceneName", NameGetter.GetScenes().Select(s => s.Name).ToArray());
+            GenerateConstStaticClass(outputPath, namespaceName, "SortingLayerName", NameGetter.GetSortingLayers().Select(s => s.Name).ToArray());
 
             AssetDatabase.Refresh();
         }
 
         public static void GenerateNamesCodes(string outputPath, string namespaceName = null)
         {
-            DeleteDirectoryIfExists(outputPath, true);
-            CreateDirectoryIfNotExists(outputPath);
+            CodeSerializer.ResetDirectory(outputPath);
 
-            // Generate TagName and Tags
-            var tagNameCode = CodeGenerator.GenerateStruct("TagName", Property.StringName);
-            Generate(outputPath, tagNameCode, "TagName", namespaceName);
-
-            var tagsCode = CodeGenerator.GenerateParentStaticClass("Tags", "TagName", NameGetter.GetTags());
-            Generate(outputPath, tagsCode, "Tags", namespaceName);
-
-            // Generate LayerName and Layers
-            var layerNameCode = CodeGenerator.GenerateStruct("LayerName", Property.StringName, Property.IntIndex);
-            Generate(outputPath, layerNameCode, "LayerName", namespaceName);
-
-            var layersCode = CodeGenerator.GenerateParentStaticClass("Layers", "LayerName", NameGetter.GetLayers().ToArray());
-            Generate(outputPath, layersCode, "Layers", namespaceName);
-
-            // Generate SceneName and Scenes
-            var sceneNameCode = CodeGenerator.GenerateStruct("SceneName", Property.StringName);
-            Generate(outputPath, sceneNameCode, "SceneName", namespaceName);
-
-            var scenesCode = CodeGenerator.GenerateParentStaticClass("Scenes", "SceneName", NameGetter.GetScenes().Select(s => s.Name).ToArray());
-            Generate(outputPath, scenesCode, "Scenes", namespaceName);
-
-            // Generate SortingLayerName and SortingLayer
-            var sortingLayerNameCode = CodeGenerator.GenerateStruct("SortingLayerName", Property.StringName, Property.IntId);
-            Generate(outputPath, sortingLayerNameCode, "SortingLayerName", namespaceName);
-
-            var sortingLayersCode = CodeGenerator.GenerateParentStaticClass("SortingLayers", "SortingLayerName", NameGetter.GetSortingLayers().ToArray());
-            Generate(outputPath, sortingLayersCode, "SortingLayers", namespaceName);
+            GenerateStructAndParent(outputPath, namespaceName, "Tags", "TagName", NameGetter.GetTags());
+            GenerateStructAndParent(outputPath, namespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
+            GenerateStructAndParent(outputPath, namespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
+            GenerateStructAndParent(outputPath, namespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
 
             AssetDatabase.Refresh();
         }
 
-        static void Generate(string outputPath, string code, string typeName, string namespaceName)
+        static void GenerateConstStaticClass(string outputPath, string namespaceName, string className, string[] names)
         {
+            var codeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
             if (namespaceName != null)
-            {
-                var dirPath = Path.Combine(outputPath, namespaceName.Replace('.', '/'));
-                CreateDirectoryIfNotExists(dirPath);
-                var outPath = Path.Combine(dirPath, typeName + ".cs");
-                File.WriteAllText(outPath, CodeGenerator.AddNamespace(namespaceName, code));
-            }
-            else
-            {
-                var outPath = Path.Combine(outputPath, typeName + ".cs");
-                File.WriteAllText(outPath, code);
-            }
+                codeBuilder.AddNamespace(namespaceName);
+            codeBuilder.AddClass(className);
+            codeBuilder.AddConstParameters(names);
+            CodeSerializer.WriteCodeFile(outputPath, codeBuilder.Build(), className, namespaceName);
         }
 
-        static void CreateDirectoryIfNotExists(string path)
+        static string GenerateStructCode(string namespaceName, string structName, IEnumerable<Member> members)
         {
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            var codeBulider = new CodeBuilder.StructWithReadonlyPropertiesCodeBuilder(headerComment);
+            if (namespaceName != null)
+                codeBulider.AddNamespace(namespaceName);
+            codeBulider.AddStuct(structName);
+            codeBulider.AddMembers(members);
+            return codeBulider.Build();
         }
 
-        static void DeleteDirectoryIfExists(string path, bool recursive = false)
+        static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, string[] names)
         {
-            if (Directory.Exists(path))
-                Directory.Delete(path, recursive);
+            var structCode = GenerateStructCode(namespaceName, structName, new[] { Member.StringName });
+            CodeSerializer.WriteCodeFile(outputPath, structCode, structName, namespaceName);
+
+            var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, names);
+            CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);
+        }
+
+        static string GenerateStaticClassCode(string namespaceName, string className, string structName, string[] names)
+        {
+            var parentCodeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
+            if (namespaceName != null)
+                parentCodeBuilder.AddNamespace(namespaceName);
+            parentCodeBuilder.AddClass(className);
+            parentCodeBuilder.AddObjectParameters(structName, names);
+            return parentCodeBuilder.Build();
+        }
+
+        static string GenerateStaticClassCode(string namespaceName, string className, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
+        {
+            var parentCodeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
+            if (namespaceName != null)
+                parentCodeBuilder.AddNamespace(namespaceName);
+            parentCodeBuilder.AddClass(className);
+            parentCodeBuilder.AddObjectParameters(structName, nameWithNumbers);
+            return parentCodeBuilder.Build();
+        }
+
+        static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, Member[] members, IEnumerable<NameWithNumber> nameWithNumbers)
+        {
+            var structCode = GenerateStructCode(namespaceName, structName, members);
+            CodeSerializer.WriteCodeFile(outputPath, structCode, structName, namespaceName);
+
+            var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, nameWithNumbers);
+            CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);
         }
     }
 }

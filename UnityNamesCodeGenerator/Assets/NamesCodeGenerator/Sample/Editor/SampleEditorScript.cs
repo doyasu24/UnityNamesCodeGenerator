@@ -19,6 +19,7 @@ namespace NamesCodeGenerator.Sample
         }
 
         [MenuItem("Assets/Names Code Generator/Generate %g", true)]
+        [MenuItem("Assets/Names Code Generator/Generate Simple", true)]
         static bool Validate()
         {
             return !EditorApplication.isCompiling && !EditorApplication.isPlaying;
