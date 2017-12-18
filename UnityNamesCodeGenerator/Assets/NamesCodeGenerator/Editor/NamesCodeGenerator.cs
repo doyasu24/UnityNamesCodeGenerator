@@ -8,7 +8,7 @@ namespace NamesCodeGenerator
     {
         const string headerComment = "// Generated code by NamesCodeGenerator";
 
-        public static void GenerateConstStaticClasses(string outputPath, string namespaceName = null)
+        public static void GenerateConstStaticClasses(string outputPath, string namespaceName)
         {
             CodeSerializer.ResetDirectory(outputPath);
 
@@ -20,7 +20,7 @@ namespace NamesCodeGenerator
             AssetDatabase.Refresh();
         }
 
-        public static void GenerateNamesCodes(string outputPath, string namespaceName = null)
+        public static void GenerateNamesCodes(string outputPath, string namespaceName, bool isGenerateExtensions)
         {
             CodeSerializer.ResetDirectory(outputPath);
 
@@ -28,6 +28,9 @@ namespace NamesCodeGenerator
             GenerateStructAndParent(outputPath, namespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
             GenerateStructAndParent(outputPath, namespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
             GenerateStructAndParent(outputPath, namespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
+
+            if (isGenerateExtensions)
+                ExtensionCodeGenerator.GenerateExtensionCodes(outputPath, namespaceName);
 
             AssetDatabase.Refresh();
         }

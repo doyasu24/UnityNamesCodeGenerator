@@ -6,7 +6,7 @@ namespace NamesCodeGenerator.CodeBuilder
 {
     public abstract class CodeBuilder
     {
-        const string indent = "    ";
+        public const string Indent = "    ";
         protected readonly StringBuilder sb = new StringBuilder();
         int currentDepth = 0;
 
@@ -43,7 +43,7 @@ namespace NamesCodeGenerator.CodeBuilder
         protected void AppendIndentLine(string s)
         {
             for (var i = 0; i < currentDepth; i++)
-                sb.Append(indent);
+                sb.Append(Indent);
             sb.AppendLine(s);
         }
     }
