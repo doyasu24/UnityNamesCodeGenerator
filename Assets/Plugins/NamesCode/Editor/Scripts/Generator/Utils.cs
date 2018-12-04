@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace NamesCodeGenerator
+namespace NamesCode.Generator
 {
     public static class Utils
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NamesCodeGenerator
+namespace NamesCode.Generator
 {
     public struct Member
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace NamesCodeGenerator.Sample
+namespace NamesCode.Generator.Sample
 {
     public static class SampleEditorScript
     {

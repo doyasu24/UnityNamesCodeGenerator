@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace NamesCodeGenerator
+namespace NamesCode.Generator
 {
     public static class CodeSerializer
     {

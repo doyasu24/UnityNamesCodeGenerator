@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using NamesCodeGenerator.CodeBuilder;
+using NamesCode.Generator.CodeBuilder;
 using UnityEditor;
 
-namespace NamesCodeGenerator
+namespace NamesCode.Generator
 {
     public static class NamesCodeGenerator
     {

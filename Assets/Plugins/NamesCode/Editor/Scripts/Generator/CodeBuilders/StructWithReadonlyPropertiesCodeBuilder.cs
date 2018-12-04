@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace NamesCodeGenerator.CodeBuilder
+namespace NamesCode.Generator.CodeBuilder
 {
     public class StructWithReadonlyPropertiesCodeBuilder : CodeBuilder
     {

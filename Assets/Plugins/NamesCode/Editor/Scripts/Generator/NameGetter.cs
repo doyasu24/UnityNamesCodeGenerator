@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NamesCodeGenerator
+namespace NamesCode.Generator
 {
     public static class NameGetter
     {

@@ -2,7 +2,7 @@
 
 using System.Text;
 
-namespace NamesCodeGenerator.CodeBuilder
+namespace NamesCode.Generator.CodeBuilder
 {
     public abstract class CodeBuilder
     {

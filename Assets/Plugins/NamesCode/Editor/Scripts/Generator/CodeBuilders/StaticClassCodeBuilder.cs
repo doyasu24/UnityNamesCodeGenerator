@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace NamesCodeGenerator.CodeBuilder
+namespace NamesCode.Generator.CodeBuilder
 {
     public class StaticClassCodeBuilder : CodeBuilder
     {
