@@ -39,3 +39,8 @@ sysinfo.txt
 Assets/Generated.meta
 Assets/Generated/
 
+# Rider
+.idea/
+Assets/Plugins/Editor/JetBrains/
+Assets/Plugins/Editor/JetBrains.meta
+
