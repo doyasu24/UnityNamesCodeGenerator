@@ -13,9 +13,7 @@ namespace NamesCode.Generator
         {
             // replace unusable characters with "_"
             var result = Regex.Replace(name, "[^a-zA-Z0-9]", "_");
-            if (char.IsDigit(result[0]))
-                return result.Insert(0, "_");
-            return result;
+            return char.IsDigit(result[0]) ? result.Insert(0, "_") : result;
         }
     }
 }

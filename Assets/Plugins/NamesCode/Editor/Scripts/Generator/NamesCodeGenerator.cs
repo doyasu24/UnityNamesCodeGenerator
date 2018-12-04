@@ -14,20 +14,20 @@ namespace NamesCode.Generator
             CodeSerializer.ResetDirectory(outputPath);
 
             GenerateStructAndParent(outputPath, NamespaceName, "Tags", "TagName", NameGetter.GetTags());
-            GenerateStructAndParent(outputPath, NamespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
-            GenerateStructAndParent(outputPath, NamespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
-            GenerateStructAndParent(outputPath, NamespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
+            GenerateStructAndParent(outputPath, NamespaceName, "Layers", "LayerName", NameGetter.GetLayers());
+            GenerateStructAndParent(outputPath, NamespaceName, "Scenes", "SceneName", NameGetter.GetScenes());
+            GenerateStructAndParent(outputPath, NamespaceName, "SortingLayers", "SortingLayerName", NameGetter.GetSortingLayers());
 
             AssetDatabase.Refresh();
         }
 
-        static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, string[] names)
+        private static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, string[] names)
         {
             var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, names);
             CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);
         }
 
-        static string GenerateStaticClassCode(string namespaceName, string className, string structName, string[] names)
+        private static string GenerateStaticClassCode(string namespaceName, string className, string structName, string[] names)
         {
             var parentCodeBuilder = new StaticClassCodeBuilder(HeaderComment);
             if (namespaceName != null)
@@ -37,7 +37,7 @@ namespace NamesCode.Generator
             return parentCodeBuilder.Build();
         }
 
-        static string GenerateStaticClassCode(string namespaceName, string className, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
+        private static string GenerateStaticClassCode(string namespaceName, string className, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
             var parentCodeBuilder = new StaticClassCodeBuilder(HeaderComment);
             if (namespaceName != null)
@@ -47,7 +47,7 @@ namespace NamesCode.Generator
             return parentCodeBuilder.Build();
         }
 
-        static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, Member[] members, IEnumerable<NameWithNumber> nameWithNumbers)
+        private static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
             var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, nameWithNumbers);
             CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);

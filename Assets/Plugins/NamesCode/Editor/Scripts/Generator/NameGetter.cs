@@ -41,14 +41,14 @@ namespace NamesCode.Generator
             }
         }
 
-        static string[] GetSortingLayerNames()
+        private static string[] GetSortingLayerNames()
         {
             Type internalEditorUtilityType = typeof(InternalEditorUtility);
             PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
             return (string[])sortingLayersProperty.GetValue(null, new object[0]);
         }
 
-        static int[] GetSortingLayerUniqueIDs()
+        private static int[] GetSortingLayerUniqueIDs()
         {
             Type internalEditorUtilityType = typeof(InternalEditorUtility);
             PropertyInfo sortingLayerUniqueIDsProperty = internalEditorUtilityType.GetProperty("sortingLayerUniqueIDs", BindingFlags.Static | BindingFlags.NonPublic);

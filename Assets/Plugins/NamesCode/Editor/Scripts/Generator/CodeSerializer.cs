@@ -6,7 +6,7 @@ namespace NamesCode.Generator
     {
         public static void WriteCodeFile(string outputPath, string code, string typeName, string namespaceName)
         {
-            string outPath = null;
+            string outPath;
             if (namespaceName != null)
             {
                 var dirPath = Path.Combine(outputPath, namespaceName.Replace('.', '/'));
@@ -26,13 +26,13 @@ namespace NamesCode.Generator
             CreateDirectoryIfNotExists(directoryPath);
         }
 
-        static void CreateDirectoryIfNotExists(string path)
+        private static void CreateDirectoryIfNotExists(string path)
         {
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
 
-        static void DeleteDirectoryIfExists(string path, bool recursive = false)
+        private static void DeleteDirectoryIfExists(string path, bool recursive = false)
         {
             if (Directory.Exists(path))
                 Directory.Delete(path, recursive);
