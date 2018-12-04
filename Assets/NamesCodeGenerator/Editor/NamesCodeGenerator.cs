@@ -8,7 +8,7 @@ namespace NamesCodeGenerator
     {
         const string headerComment = "// Generated code by NamesCodeGenerator\nusing NamesCode;\n";
 
-        public static void GenerateNamesCodes(string outputPath, string namespaceName, bool isGenerateExtensions)
+        public static void GenerateNamesCodes(string outputPath, string namespaceName)
         {
             CodeSerializer.ResetDirectory(outputPath);
 
@@ -16,9 +16,6 @@ namespace NamesCodeGenerator
             GenerateStructAndParent(outputPath, namespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
             GenerateStructAndParent(outputPath, namespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
             GenerateStructAndParent(outputPath, namespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
-
-            if (isGenerateExtensions)
-                ExtensionCodeGenerator.GenerateExtensionCodes(outputPath, namespaceName);
 
             AssetDatabase.Refresh();
         }

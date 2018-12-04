@@ -8,7 +8,7 @@ namespace NamesCodeGenerator.Sample
         static void GenerateCode()
         {
             var outputPath = "Assets/Generated";
-            NamesCodeGenerator.GenerateNamesCodes(outputPath, "Names", true);
+            NamesCodeGenerator.GenerateNamesCodes(outputPath, "Names");
         }
 
         [MenuItem("Assets/Names Code Generator/Generate %g", true)]
