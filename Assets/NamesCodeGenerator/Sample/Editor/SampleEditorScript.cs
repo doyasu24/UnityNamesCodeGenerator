@@ -11,15 +11,7 @@ namespace NamesCodeGenerator.Sample
             NamesCodeGenerator.GenerateNamesCodes(outputPath, "Names", true);
         }
 
-        [MenuItem("Assets/Names Code Generator/Generate Simple")]
-        static void GenerateSimpleCode()
-        {
-            var outputPath = "Assets/Generated";
-            NamesCodeGenerator.GenerateConstStaticClasses(outputPath, "Names.Simple");
-        }
-
         [MenuItem("Assets/Names Code Generator/Generate %g", true)]
-        [MenuItem("Assets/Names Code Generator/Generate Simple", true)]
         static bool Validate()
         {
             return !EditorApplication.isCompiling && !EditorApplication.isPlaying;

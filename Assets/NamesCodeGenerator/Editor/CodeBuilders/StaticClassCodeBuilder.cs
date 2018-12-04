@@ -13,14 +13,6 @@ namespace NamesCodeGenerator.CodeBuilder
             IncreaseIndent();
         }
 
-        public void AddConstParameters(params string[] namesAsCamelCase)
-        {
-            var parameters = namesAsCamelCase
-                .Select(name => string.Format("public const string {0} = {1};", Utils.ConvertToVariableName(name), Utils.SurroundWithDoubleQuote(name)));
-            foreach(var parameter in parameters)
-                AppendIndentLine(parameter);
-        }
-
         public void AddObjectParameters(string typeName, IEnumerable<string> names)
         {
             var parameters = names.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n), Utils.SurroundWithDoubleQuote(n)));

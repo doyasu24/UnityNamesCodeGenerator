@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NamesCodeGenerator.CodeBuilder;
 using UnityEditor;
 
 namespace NamesCodeGenerator
@@ -7,18 +7,6 @@ namespace NamesCodeGenerator
     public static class NamesCodeGenerator
     {
         const string headerComment = "// Generated code by NamesCodeGenerator";
-
-        public static void GenerateConstStaticClasses(string outputPath, string namespaceName)
-        {
-            CodeSerializer.ResetDirectory(outputPath);
-
-            GenerateConstStaticClass(outputPath, namespaceName, "TagName", NameGetter.GetTags());
-            GenerateConstStaticClass(outputPath, namespaceName, "LayerName", NameGetter.GetLayers().Select(l => l.Name).ToArray());
-            GenerateConstStaticClass(outputPath, namespaceName, "SceneName", NameGetter.GetScenes().Select(s => s.Name).ToArray());
-            GenerateConstStaticClass(outputPath, namespaceName, "SortingLayerName", NameGetter.GetSortingLayers().Select(s => s.Name).ToArray());
-
-            AssetDatabase.Refresh();
-        }
 
         public static void GenerateNamesCodes(string outputPath, string namespaceName, bool isGenerateExtensions)
         {
@@ -35,19 +23,9 @@ namespace NamesCodeGenerator
             AssetDatabase.Refresh();
         }
 
-        static void GenerateConstStaticClass(string outputPath, string namespaceName, string className, string[] names)
-        {
-            var codeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
-            if (namespaceName != null)
-                codeBuilder.AddNamespace(namespaceName);
-            codeBuilder.AddClass(className);
-            codeBuilder.AddConstParameters(names);
-            CodeSerializer.WriteCodeFile(outputPath, codeBuilder.Build(), className, namespaceName);
-        }
-
         static string GenerateStructCode(string namespaceName, string structName, IEnumerable<Member> members)
         {
-            var codeBulider = new CodeBuilder.StructWithReadonlyPropertiesCodeBuilder(headerComment);
+            var codeBulider = new StructWithReadonlyPropertiesCodeBuilder(headerComment);
             if (namespaceName != null)
                 codeBulider.AddNamespace(namespaceName);
             codeBulider.AddStuct(structName);
@@ -66,7 +44,7 @@ namespace NamesCodeGenerator
 
         static string GenerateStaticClassCode(string namespaceName, string className, string structName, string[] names)
         {
-            var parentCodeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
+            var parentCodeBuilder = new StaticClassCodeBuilder(headerComment);
             if (namespaceName != null)
                 parentCodeBuilder.AddNamespace(namespaceName);
             parentCodeBuilder.AddClass(className);
@@ -76,7 +54,7 @@ namespace NamesCodeGenerator
 
         static string GenerateStaticClassCode(string namespaceName, string className, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
-            var parentCodeBuilder = new CodeBuilder.StaticClassCodeBuilder(headerComment);
+            var parentCodeBuilder = new StaticClassCodeBuilder(headerComment);
             if (namespaceName != null)
                 parentCodeBuilder.AddNamespace(namespaceName);
             parentCodeBuilder.AddClass(className);
