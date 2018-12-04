@@ -6,16 +6,17 @@ namespace NamesCodeGenerator
 {
     public static class NamesCodeGenerator
     {
-        const string headerComment = "// Generated code by NamesCodeGenerator\nusing NamesCode;\n";
-
-        public static void GenerateNamesCodes(string outputPath, string namespaceName)
+        private const string HeaderComment = "// Generated code by NamesCodeGenerator";
+        private const string NamespaceName = "NamesCode";
+        
+        public static void GenerateNamesCodes(string outputPath)
         {
             CodeSerializer.ResetDirectory(outputPath);
 
-            GenerateStructAndParent(outputPath, namespaceName, "Tags", "TagName", NameGetter.GetTags());
-            GenerateStructAndParent(outputPath, namespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
-            GenerateStructAndParent(outputPath, namespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
-            GenerateStructAndParent(outputPath, namespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
+            GenerateStructAndParent(outputPath, NamespaceName, "Tags", "TagName", NameGetter.GetTags());
+            GenerateStructAndParent(outputPath, NamespaceName, "Layers", "LayerName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetLayers());
+            GenerateStructAndParent(outputPath, NamespaceName, "Scenes", "SceneName", new[] { Member.StringName, Member.IntIndex }, NameGetter.GetScenes());
+            GenerateStructAndParent(outputPath, NamespaceName, "SortingLayers", "SortingLayerName", new[] { Member.StringName, Member.IntId }, NameGetter.GetSortingLayers());
 
             AssetDatabase.Refresh();
         }
@@ -28,7 +29,7 @@ namespace NamesCodeGenerator
 
         static string GenerateStaticClassCode(string namespaceName, string className, string structName, string[] names)
         {
-            var parentCodeBuilder = new StaticClassCodeBuilder(headerComment);
+            var parentCodeBuilder = new StaticClassCodeBuilder(HeaderComment);
             if (namespaceName != null)
                 parentCodeBuilder.AddNamespace(namespaceName);
             parentCodeBuilder.AddClass(className);
@@ -38,7 +39,7 @@ namespace NamesCodeGenerator
 
         static string GenerateStaticClassCode(string namespaceName, string className, string structName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
-            var parentCodeBuilder = new StaticClassCodeBuilder(headerComment);
+            var parentCodeBuilder = new StaticClassCodeBuilder(HeaderComment);
             if (namespaceName != null)
                 parentCodeBuilder.AddNamespace(namespaceName);
             parentCodeBuilder.AddClass(className);
