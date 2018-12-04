@@ -5,25 +5,28 @@ namespace NamesCode.Generator.CodeBuilder
 {
     public class StaticClassCodeBuilder
     {
-        private readonly CodeStringBuilder _builder;
-        
-        public StaticClassCodeBuilder(string headerComment)
+        private readonly CodeStringBuilder _builder = new CodeStringBuilder();
+
+        public StaticClassCodeBuilder AddHeaderCommend(string headerComment)
         {
-           _builder = new CodeStringBuilder(headerComment);
+            _builder.AddHeaderCommend(headerComment);
+            return this;
         }
 
-        public void AddNamespace(string namespaceName)
+        public StaticClassCodeBuilder AddNamespace(string namespaceName)
         {
             _builder.AddNamespace(namespaceName);
+            return this;
         }
 
-        public void AddClass(string className)
+        public StaticClassCodeBuilder AddClass(string className)
         {
             _builder.AppendIndentLine(string.Format("public static class {0}", className));
             _builder.IncreaseIndent();
+            return this;
         }
 
-        public void AddObjectParameters(string typeName, string[] names)
+        public StaticClassCodeBuilder AddObjectParameters(string typeName, string[] names)
         {
             var parameters = names.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n), Utils.SurroundWithDoubleQuote(n)));
             foreach (var parameter in parameters)
@@ -35,9 +38,10 @@ namespace NamesCode.Generator.CodeBuilder
             var variables = string.Join(", ", names.Select(Utils.ConvertToVariableName).ToArray());
             var arrayParameter = string.Format("public static readonly {0}[] Names = {1} {2} {3};", typeName, "{", variables, "}");
             _builder.AppendIndentLine(arrayParameter);
+            return this;
         }
 
-        public void AddObjectParameters(string typeName, IEnumerable<NameWithNumber> nameWithNumbers)
+        public StaticClassCodeBuilder AddObjectParameters(string typeName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
             var parameters = nameWithNumbers.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n.Name), Utils.SurroundWithDoubleQuote(n.Name), n.Number.ToString()));
             foreach (var parameter in parameters)
@@ -49,6 +53,7 @@ namespace NamesCode.Generator.CodeBuilder
             var variables = string.Join(", ", nameWithNumbers.Select(n => n.Name).Select(Utils.ConvertToVariableName).ToArray());
             var arrayParameter = string.Format("public static readonly {0}[] Names = {1} {2} {3};", typeName, "{", variables, "}");
             _builder.AppendIndentLine(arrayParameter);
+            return this;
         }
 
         public string Build()

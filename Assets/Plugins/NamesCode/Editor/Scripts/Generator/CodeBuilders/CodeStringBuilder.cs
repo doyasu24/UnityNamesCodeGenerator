@@ -10,7 +10,7 @@ namespace NamesCode.Generator.CodeBuilder
         private readonly StringBuilder _sb = new StringBuilder();
         private int _currentDepth;
 
-        public CodeStringBuilder(string headerComment)
+        public void AddHeaderCommend(string headerComment)
         {
             AppendIndentLine(headerComment);
         }
