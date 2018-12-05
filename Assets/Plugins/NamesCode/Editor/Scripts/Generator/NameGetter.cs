@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
-using System.IO;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 namespace NamesCode.Generator
 {
@@ -47,16 +46,19 @@ namespace NamesCode.Generator
 
         private static string[] GetSortingLayerNames()
         {
-            Type internalEditorUtilityType = typeof(InternalEditorUtility);
-            PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
-            return (string[])sortingLayersProperty.GetValue(null, new object[0]);
+            var internalEditorUtilityType = typeof(InternalEditorUtility);
+            var sortingLayersProperty =
+                internalEditorUtilityType.GetProperty("sortingLayerNames",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+            return (string[]) sortingLayersProperty.GetValue(null, new object[0]);
         }
 
         private static int[] GetSortingLayerUniqueIDs()
         {
-            Type internalEditorUtilityType = typeof(InternalEditorUtility);
-            PropertyInfo sortingLayerUniqueIDsProperty = internalEditorUtilityType.GetProperty("sortingLayerUniqueIDs", BindingFlags.Static | BindingFlags.NonPublic);
-            return (int[])sortingLayerUniqueIDsProperty.GetValue(null, new object[0]);
+            var internalEditorUtilityType = typeof(InternalEditorUtility);
+            var sortingLayerUniqueIDsProperty = internalEditorUtilityType.GetProperty("sortingLayerUniqueIDs",
+                BindingFlags.Static | BindingFlags.NonPublic);
+            return (int[]) sortingLayerUniqueIDsProperty.GetValue(null, new object[0]);
         }
     }
 
