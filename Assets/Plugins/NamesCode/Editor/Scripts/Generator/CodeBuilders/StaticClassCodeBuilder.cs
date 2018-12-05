@@ -26,21 +26,6 @@ namespace NamesCode.Generator.CodeBuilder
             return this;
         }
 
-        public StaticClassCodeBuilder AddObjectParameters(string typeName, string[] names)
-        {
-            var parameters = names.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n), Utils.SurroundWithDoubleQuote(n)));
-            foreach (var parameter in parameters)
-                _builder.AppendIndentLine(parameter);
-
-            if (parameters.Any())
-                _builder.AddEmptyLine();
-            
-            var variables = string.Join(", ", names.Select(Utils.ConvertToVariableName).ToArray());
-            var arrayParameter = string.Format("public static readonly {0}[] Names = {1} {2} {3};", typeName, "{", variables, "}");
-            _builder.AppendIndentLine(arrayParameter);
-            return this;
-        }
-
         public StaticClassCodeBuilder AddObjectParameters(string typeName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
             var parameters = nameWithNumbers.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n.Name), Utils.SurroundWithDoubleQuote(n.Name), n.Number.ToString()));

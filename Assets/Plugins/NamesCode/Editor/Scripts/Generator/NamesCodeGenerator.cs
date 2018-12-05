@@ -22,40 +22,16 @@ namespace NamesCode.Generator
             AssetDatabase.Refresh();
         }
 
-        private static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName,
-            string structName, string[] names)
+        private static void GenerateStructAndParent(string outputPath, string namespaceName, string className,
+            string structName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
-            var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, names);
-            CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);
-        }
-
-        private static string GenerateStaticClassCode(string namespaceName, string className, string structName,
-            string[] names)
-        {
-            return new StaticClassCodeBuilder()
-                .AddHeaderCommend(HeaderComment)
-                .AddNamespace(namespaceName)
-                .AddClass(className)
-                .AddObjectParameters(structName, names)
-                .Build();
-        }
-
-        private static string GenerateStaticClassCode(string namespaceName, string className, string structName,
-            IEnumerable<NameWithNumber> nameWithNumbers)
-        {
-            return new StaticClassCodeBuilder()
+            var parentCode = new StaticClassCodeBuilder()
                 .AddHeaderCommend(HeaderComment)
                 .AddNamespace(namespaceName)
                 .AddClass(className)
                 .AddObjectParameters(structName, nameWithNumbers)
                 .Build();
-        }
-
-        private static void GenerateStructAndParent(string outputPath, string namespaceName, string parentName,
-            string structName, IEnumerable<NameWithNumber> nameWithNumbers)
-        {
-            var parentCode = GenerateStaticClassCode(namespaceName, parentName, structName, nameWithNumbers);
-            CodeSerializer.WriteCodeFile(outputPath, parentCode, parentName, namespaceName);
+            CodeSerializer.WriteCodeFile(outputPath, parentCode, className, namespaceName);
         }
     }
 }

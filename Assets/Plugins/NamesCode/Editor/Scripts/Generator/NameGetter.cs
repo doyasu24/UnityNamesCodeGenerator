@@ -11,9 +11,13 @@ namespace NamesCode.Generator
 {
     public static class NameGetter
     {
-        public static string[] GetTags()
+        public static IEnumerable<NameWithNumber> GetTags()
         {
-            return InternalEditorUtility.tags;
+            var tags = InternalEditorUtility.tags;
+            for (var i = 0; i < tags.Length; i++)
+            {
+                yield return new NameWithNumber(tags[i], i);
+            }
         }
 
         public static IEnumerable<NameWithNumber> GetLayers()

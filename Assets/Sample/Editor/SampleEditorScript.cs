@@ -10,11 +10,5 @@ namespace NamesCode.Generator.Sample
             const string outputPath = "Assets/Generated";
             NamesCodeGenerator.GenerateNamesCodes(outputPath);
         }
-
-        [MenuItem("Assets/Names Code Generator/Generate %g", true)]
-        private static bool Validate()
-        {
-            return !EditorApplication.isCompiling && !EditorApplication.isPlaying;
-        }
     }
 }
