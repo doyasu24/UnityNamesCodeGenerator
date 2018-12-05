@@ -11,8 +11,10 @@ namespace NamesCode.Generator
 
         public static string ConvertToVariableName(string name)
         {
+            var spaceRemoved = name.Replace(" ", "");
+
             // replace unusable characters with "_"
-            var result = Regex.Replace(name, "[^a-zA-Z0-9]", "_");
+            var result = Regex.Replace(spaceRemoved, "[^a-zA-Z0-9]", "_");
             return char.IsDigit(result[0]) ? result.Insert(0, "_") : result;
         }
     }
