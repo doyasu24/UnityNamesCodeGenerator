@@ -7,11 +7,11 @@ namespace NamesCode.Generator.Sample
     public static class SampleEditorScript
     {
         [MenuItem("Assets/Names Code Generator/Generate %g")]
-        private static void GenerateCode()
+        private static void Generate()
         {
             var setting = AssetDatabase.LoadAssetAtPath<GeneratorSetting>(GeneratorSetting.Path);
             if (setting == null) throw new FileNotFoundException("GeneratorSetting not found: " + GeneratorSetting.Path);
-            NamesCodeGenerator.GenerateNamesCodes(setting.OutputDirectory);
+            NamesCodeGenerator.Generate(setting);
         }
     }
 }
