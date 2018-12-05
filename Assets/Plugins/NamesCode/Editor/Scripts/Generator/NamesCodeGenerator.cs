@@ -11,7 +11,7 @@ namespace NamesCode.Generator
         private const string HeaderComment = "// Generated code by NamesCodeGenerator";
         private const string NamespaceName = "NamesCode";
         
-        [MenuItem("Tools/NamesCode/Generate %g")]
+        [MenuItem("Tools/NamesCode/Generate")]
         public static void Generate()
         {
             var setting = AssetDatabase.LoadAssetAtPath<GeneratorSetting>(GeneratorSetting.Path);
