@@ -29,13 +29,13 @@ namespace NamesCode.Generator.CodeBuilder
         public StaticClassCodeBuilder AddObjectParameters(string typeName, IEnumerable<NameWithNumber> nameWithNumbers)
         {
             var nameWithNumbersArray = nameWithNumbers.ToArray();
-            var parameters = nameWithNumbersArray.Select(n => GenerateStructProperty(typeName, Utils.ConvertToVariableName(n.Name), Utils.SurroundWithDoubleQuote(n.Name), n.Number.ToString()));
+            var parameters = nameWithNumbersArray.Select(n => GenerateStructProperty(typeName, CodeStringUtils.ConvertToVariableName(n.Name), CodeStringUtils.SurroundWithDoubleQuote(n.Name), n.Number.ToString()));
             foreach (var parameter in parameters)
                 _builder.AppendIndentLine(parameter);
 
             _builder.AddEmptyLine();
 
-            var variables = string.Join(", ", nameWithNumbersArray.Select(n => n.Name).Select(Utils.ConvertToVariableName).ToArray());
+            var variables = string.Join(", ", nameWithNumbersArray.Select(n => n.Name).Select(CodeStringUtils.ConvertToVariableName).ToArray());
             var arrayParameter = string.Format("public static readonly {0}[] Names = {1} {2} {3};", typeName, "{", variables, "}");
             _builder.AppendIndentLine(arrayParameter);
             return this;

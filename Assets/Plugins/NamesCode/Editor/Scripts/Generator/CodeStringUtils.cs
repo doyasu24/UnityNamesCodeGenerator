@@ -2,7 +2,7 @@
 
 namespace NamesCode.Generator
 {
-    public static class Utils
+    public static class CodeStringUtils
     {
         public static string SurroundWithDoubleQuote(string str)
         {
