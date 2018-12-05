@@ -35,13 +35,13 @@ namespace NamesCode.Generator
         private static void GenerateStructAndParent(string outputPath, string className, string structName,
             IEnumerable<NameWithNumber> nameWithNumbers)
         {
-            var parentCode = new StaticClassCodeBuilder()
+            var code = new StaticClassCodeBuilder()
                 .AddHeaderCommend(HeaderComment)
                 .AddNamespace(NamespaceName)
                 .AddClass(className)
                 .AddObjectParameters(structName, nameWithNumbers)
                 .Build();
-            CodeSerializer.WriteCodeFile(outputPath, parentCode, className);
+            CodeSerializer.WriteCodeFile(outputPath, code, className);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace NamesCode.Generator
 {
@@ -13,7 +14,7 @@ namespace NamesCode.Generator
 
         public static void ResetDirectory(string directoryPath)
         {
-            DeleteDirectoryIfExists(directoryPath, true);
+            DeleteAllFilesWithoutMetaFiles(directoryPath);
             CreateDirectoryIfNotExists(directoryPath);
         }
 
@@ -23,10 +24,25 @@ namespace NamesCode.Generator
                 Directory.CreateDirectory(path);
         }
 
-        private static void DeleteDirectoryIfExists(string path, bool recursive = false)
+        private static void DeleteAllFilesWithoutMetaFiles(string path)
         {
-            if (Directory.Exists(path))
-                Directory.Delete(path, recursive);
+            if (!Directory.Exists(path)) return;
+            
+            foreach (var d in Directory.GetDirectories(path))
+                DeleteAllFilesWithoutMetaFiles(d);
+
+            var notMetaFiles = Directory.GetFiles(path).Where(f => !f.EndsWith(".meta"));
+            foreach (var f in notMetaFiles)
+                File.Delete(f);
+
+            if (IsDirectoryEmpty(path))
+                Directory.Delete(path);
+        }
+
+        private static bool IsDirectoryEmpty(string directoryPath)
+        {
+            return Directory.GetDirectories(directoryPath).Length <= 0 &&
+                   Directory.GetFiles(directoryPath).Length <= 0;
         }
     }
 }
