@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using NamesCode.Generator.CodeBuilder;
 using NamesCode.Settings;
 using UnityEditor;
@@ -9,8 +10,16 @@ namespace NamesCode.Generator
     {
         private const string HeaderComment = "// Generated code by NamesCodeGenerator";
         private const string NamespaceName = "NamesCode";
+        
+        [MenuItem("Tools/NamesCode/Generate %g")]
+        public static void Generate()
+        {
+            var setting = AssetDatabase.LoadAssetAtPath<GeneratorSetting>(GeneratorSetting.Path);
+            if (setting == null) throw new FileNotFoundException("GeneratorSetting not found: " + GeneratorSetting.Path);
+            Generate(setting);
+        }
 
-        public static void Generate(GeneratorSetting setting)
+        private static void Generate(GeneratorSetting setting)
         {
             CodeSerializer.ResetDirectory(setting.OutputDirectory);
 
