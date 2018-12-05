@@ -36,10 +36,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# NamesCode Generated
-Assets/NamesCode/
-Assets/NamesCode.meta
-
 # Rider
 .idea/
 Assets/Plugins/Editor/JetBrains/
