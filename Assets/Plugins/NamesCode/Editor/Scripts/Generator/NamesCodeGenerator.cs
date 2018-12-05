@@ -31,7 +31,7 @@ namespace NamesCode.Generator
                 .AddClass(className)
                 .AddObjectParameters(structName, nameWithNumbers)
                 .Build();
-            CodeSerializer.WriteCodeFile(outputPath, parentCode, className, namespaceName);
+            CodeSerializer.WriteCodeFile(outputPath, parentCode, className);
         }
     }
 }

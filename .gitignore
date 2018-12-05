@@ -36,8 +36,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-Assets/Generated.meta
-Assets/Generated/
+# NamesCode Generated
+Assets/NamesCode/
+Assets/NamesCode.meta
 
 # Rider
 .idea/

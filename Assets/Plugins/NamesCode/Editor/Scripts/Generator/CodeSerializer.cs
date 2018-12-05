@@ -4,20 +4,11 @@ namespace NamesCode.Generator
 {
     public static class CodeSerializer
     {
-        public static void WriteCodeFile(string outputPath, string code, string typeName, string namespaceName)
+        public static void WriteCodeFile(string outputDirectory, string code, string typeName)
         {
-            string outPath;
-            if (namespaceName != null)
-            {
-                var dirPath = Path.Combine(outputPath, namespaceName.Replace('.', '/'));
-                CreateDirectoryIfNotExists(dirPath);
-                outPath = Path.Combine(dirPath, typeName + ".cs");
-            }
-            else
-            {
-                outPath = Path.Combine(outputPath, typeName + ".cs");
-            }
-            File.WriteAllText(outPath, code);
+            CreateDirectoryIfNotExists(outputDirectory);
+            var path = Path.Combine(outputDirectory, typeName + ".cs");
+            File.WriteAllText(path, code);
         }
 
         public static void ResetDirectory(string directoryPath)
