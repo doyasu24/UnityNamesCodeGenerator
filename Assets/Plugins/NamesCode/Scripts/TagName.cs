@@ -1,14 +1,29 @@
+using System;
+using UnityEngine;
+
 namespace NamesCode
 {
+    [Serializable]
     public struct TagName
     {
-        public readonly string Name;
-        public readonly int Index;
+        public string Name
+        {
+            get { return _name; }
+        }
+
+        [SerializeField] private string _name;
+
+        public int Index
+        {
+            get { return _index; }
+        }
+
+        [SerializeField] private int _index;
 
         public TagName(string name, int index)
         {
-            Name = name;
-            Index = index;
+            _name = name;
+            _index = index;
         }
     }
 }
