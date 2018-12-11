@@ -1,6 +1,8 @@
 {
     "name": "NamesCodeEditor",
-    "references": [],
+    "references": [
+        "NamesCode"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
