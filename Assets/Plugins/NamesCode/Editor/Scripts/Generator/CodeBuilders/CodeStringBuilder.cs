@@ -38,6 +38,12 @@ namespace NamesCode.Generator.CodeBuilder
             AppendIndentLine("}");
         }
 
+        public void CloseIndent()
+        {
+            _currentDepth -= 1;
+            AppendIndentLine("};");
+        }
+
         public string Build()
         {
             while (_currentDepth > 0)

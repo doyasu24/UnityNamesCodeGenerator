@@ -6,6 +6,9 @@ namespace NamesCode
     {
         public static readonly SceneName Sample = new SceneName("Sample", 0);
 
-        public static readonly SceneName[] Names = { Sample };
+        public static readonly SceneName[] Names =
+        {
+            Sample,
+        };
     }
 }

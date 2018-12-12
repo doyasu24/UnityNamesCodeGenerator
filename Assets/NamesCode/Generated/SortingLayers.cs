@@ -6,6 +6,9 @@ namespace NamesCode
     {
         public static readonly SortingLayerName Default = new SortingLayerName("Default", 0);
 
-        public static readonly SortingLayerName[] Names = { Default };
+        public static readonly SortingLayerName[] Names =
+        {
+            Default,
+        };
     }
 }

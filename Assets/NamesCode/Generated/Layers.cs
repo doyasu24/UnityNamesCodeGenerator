@@ -10,6 +10,13 @@ namespace NamesCode
         public static readonly LayerName Water = new LayerName("Water", 4);
         public static readonly LayerName UI = new LayerName("UI", 5);
 
-        public static readonly LayerName[] Names = { Default, TransparentFX, IgnoreRaycast, Water, UI };
+        public static readonly LayerName[] Names =
+        {
+            Default,
+            TransparentFX,
+            IgnoreRaycast,
+            Water,
+            UI,
+        };
     }
 }

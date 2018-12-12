@@ -35,9 +35,16 @@ namespace NamesCode.Generator.CodeBuilder
 
             _builder.AddEmptyLine();
 
-            var variables = string.Join(", ", nameWithNumbersArray.Select(n => n.Name).Select(CodeStringUtils.ConvertToVariableName).ToArray());
-            var arrayParameter = string.Format("public static readonly {0}[] Names = {1} {2} {3};", typeName, "{", variables, "}");
-            _builder.AppendIndentLine(arrayParameter);
+            _builder.AppendIndentLine(string.Format("public static readonly {0}[] Names =", typeName));
+            _builder.IncreaseIndent();
+
+            var variables = nameWithNumbersArray.Select(n => n.Name).Select(CodeStringUtils.ConvertToVariableName);
+            foreach (var v in variables)
+            {
+                _builder.AppendIndentLine(v + ",");
+            }
+            
+            _builder.CloseIndent();
             return this;
         }
 

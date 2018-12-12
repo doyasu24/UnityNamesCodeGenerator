@@ -12,6 +12,15 @@ namespace NamesCode
         public static readonly TagName Player = new TagName("Player", 5);
         public static readonly TagName GameController = new TagName("GameController", 6);
 
-        public static readonly TagName[] Names = { Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController };
+        public static readonly TagName[] Names =
+        {
+            Untagged,
+            Respawn,
+            Finish,
+            EditorOnly,
+            MainCamera,
+            Player,
+            GameController,
+        };
     }
 }
