@@ -8,7 +8,7 @@ namespace NamesCode.Generator
 {
     public static class NamesCodeGenerator
     {
-        private const string HeaderComment = "// Generated code by NamesCodeGenerator";
+        private const string HeaderComment = "// Generated code by NamesCodeGenerator\n";
         private const string NamespaceName = "NamesCode";
         
         [MenuItem("Tools/NamesCode/Generate")]

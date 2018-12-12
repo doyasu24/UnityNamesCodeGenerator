@@ -1,4 +1,5 @@
 // Generated code by NamesCodeGenerator
+
 namespace NamesCode
 {
     public static class Scenes
