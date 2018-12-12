@@ -1,0 +1,12 @@
+{
+    "name": "NamesCodeEditor",
+    "references": [
+        "NamesCode"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

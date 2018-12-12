@@ -1,21 +1,3 @@
-# UnityNamesCodeGenerator
-NamesCodeGenerator for Unity generates type safe value objects and static classes from Tag, Layer, SortingLayer, and Scene.
-
-# How to use
-
-import NamesCodeGenerator unitypackage from release page.
-
-execute `Tools/NamesCode/Generate`.
-
-or automatically generate code OnPreprocessBuild.
-
-The code output destination is defined in `Assets/Plugins/NamesCode/Editor/GeneratorSetting.asset`
-
-# Code Generation Result
-
-The format policy follows `Microsoft Visual Studio`
-
-```:Layers.cs
 // Generated code by NamesCodeGenerator
 
 namespace NamesCode
@@ -38,8 +20,3 @@ namespace NamesCode
         };
     }
 }
-```
-
-# License
-
-MIT
