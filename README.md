@@ -1,5 +1,5 @@
 # UnityNamesCodeGenerator
-NamesCodeGenerator for Unity generates type safe value objects and static classes from Tag, Layer, etc.
+NamesCodeGenerator for Unity generates type safe value objects and static classes from Tag, Layer, SortingLayer, and Scene.
 
 # How to use
 
@@ -17,6 +17,7 @@ The format policy follows `Microsoft Visual Studio`
 
 ```:Layers.cs
 // Generated code by NamesCodeGenerator
+
 namespace NamesCode
 {
     public static class Layers
@@ -27,7 +28,14 @@ namespace NamesCode
         public static readonly LayerName Water = new LayerName("Water", 4);
         public static readonly LayerName UI = new LayerName("UI", 5);
 
-        public static readonly LayerName[] Names = { Default, TransparentFX, IgnoreRaycast, Water, UI };
+        public static readonly LayerName[] Names =
+        {
+            Default,
+            TransparentFX,
+            IgnoreRaycast,
+            Water,
+            UI,
+        };
     }
 }
 ```
