@@ -12,7 +12,7 @@ namespace NamesCode.Generator
     {
         private const string RepositoryUrl = "https://github.com/doyasu24/UnityNamesCodeGenerator";
 
-        [MenuItem("Tools/NamesCode/Generate")]
+        [MenuItem("Tools/NamesCode/GenerateCode")]
         public static void Generate()
         {
             var generatorSetting = FindGeneratorSetting();
