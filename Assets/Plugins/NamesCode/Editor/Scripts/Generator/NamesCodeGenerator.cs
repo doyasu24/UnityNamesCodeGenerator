@@ -10,9 +10,7 @@ namespace NamesCode.Generator
 {
     public static class NamesCodeGenerator
     {
-        private const string HeaderComment = "// Generated code by NamesCodeGenerator\n";
-        private const string NamespaceName = "NamesCode";
-        private const string DocumentUrl = "https://github.com/doyasu24/UnityNamesCodeGenerator";
+        private const string RepositoryUrl = "https://github.com/doyasu24/UnityNamesCodeGenerator";
 
         [MenuItem("Tools/NamesCode/Generate")]
         public static void Generate()
@@ -28,7 +26,7 @@ namespace NamesCode.Generator
             if (guids.Length == 0)
             {
                 Debug.LogWarning(
-                    $"GeneratorSetting file not found. Default values will be used for code generation.\nsee {DocumentUrl}");
+                    $"GeneratorSetting file not found. Default values will be used for code generation.\nsee {RepositoryUrl}");
                 return ScriptableObject.CreateInstance<GeneratorSetting>();
             }
 
@@ -54,9 +52,10 @@ namespace NamesCode.Generator
         private static void GenerateStructAndParent(string outputPath, string className, string structName,
             IEnumerable<NameWithNumber> nameWithNumbers)
         {
+            const string headerComment = "// Generated code by NamesCodeGenerator\n// " + RepositoryUrl;
             var code = new StaticClassCodeBuilder()
-                .AddHeaderCommend(HeaderComment)
-                .AddNamespace(NamespaceName)
+                .AddHeaderCommend(headerComment)
+                .AddNamespace("NamesCode")
                 .AddClass(className)
                 .AddObjectParameters(structName, nameWithNumbers)
                 .Build();
