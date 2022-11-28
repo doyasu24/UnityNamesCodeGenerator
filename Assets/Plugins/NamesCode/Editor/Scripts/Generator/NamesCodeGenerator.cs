@@ -29,7 +29,7 @@ namespace NamesCode.Generator
             {
                 Debug.LogWarning(
                     $"GeneratorSetting file not found. Default values will be used for code generation.\nsee {DocumentUrl}");
-                return GeneratorSetting.Default;
+                return ScriptableObject.CreateInstance<GeneratorSetting>();
             }
 
             var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();

@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NamesCode.Settings
 {
-    [CreateAssetMenu(menuName = "NamesCode/GeneratorSetting")]
+    [CreateAssetMenu(menuName = "NamesCode/GeneratorSetting", fileName = "GeneratorSetting")]
     public class GeneratorSetting : ScriptableObject
     {
-        public string OutputDirectory;
+        [SerializeField] [FormerlySerializedAs("OutputDirectory")]
+        private string outputDirectory = DefaultPath;
 
-        public static GeneratorSetting Default
-        {
-            get
-            {
-                var s = CreateInstance<GeneratorSetting>();
-                s.OutputDirectory = "Assets/NamesCode/Generated/";
-                return s;
-            }
-        }
+        public string OutputDirectory => outputDirectory;
+
+        private const string DefaultPath = "Assets/NamesCode/Generated";
     }
 }
