@@ -25,5 +25,10 @@ namespace NamesCode
             _name = name;
             _id = id;
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(Name)}: {Name}, {nameof(Id)}: {Id}";
+        }
     }
 }

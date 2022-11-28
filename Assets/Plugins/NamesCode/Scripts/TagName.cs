@@ -25,5 +25,10 @@ namespace NamesCode
             _name = name;
             _index = index;
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(Name)}: {Name}, {nameof(Index)}: {Index}";
+        }
     }
 }
