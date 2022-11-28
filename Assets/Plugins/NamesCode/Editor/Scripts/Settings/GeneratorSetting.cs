@@ -7,10 +7,8 @@ namespace NamesCode.Settings
     public class GeneratorSetting : ScriptableObject
     {
         [SerializeField] [FormerlySerializedAs("OutputDirectory")]
-        private string outputDirectory = DefaultPath;
+        private string outputDirectory = "Assets/NamesCode/Generated";
 
         public string OutputDirectory => outputDirectory;
-
-        private const string DefaultPath = "Assets/NamesCode/Generated";
     }
 }
