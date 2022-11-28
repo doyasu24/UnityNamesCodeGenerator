@@ -2,14 +2,19 @@
 
 namespace NamesCode.Settings
 {
-    [CreateAssetMenu(
-        menuName = "NamesCode/GeneratorSetting",
-        fileName = Path
-    )]
+    [CreateAssetMenu(menuName = "NamesCode/GeneratorSetting")]
     public class GeneratorSetting : ScriptableObject
     {
         public string OutputDirectory;
 
-        public const string Path = "Assets/Plugins/NamesCode/Editor/GeneratorSetting.asset";
+        public static GeneratorSetting Default
+        {
+            get
+            {
+                var s = CreateInstance<GeneratorSetting>();
+                s.OutputDirectory = "Assets/NamesCode/Generated/";
+                return s;
+            }
+        }
     }
 }
