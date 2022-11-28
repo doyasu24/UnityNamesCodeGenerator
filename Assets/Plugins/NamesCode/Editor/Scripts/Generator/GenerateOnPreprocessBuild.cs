@@ -1,4 +1,5 @@
-﻿using UnityEditor.Build;
+﻿using System;
+using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
 namespace NamesCode.Generator
@@ -12,7 +13,14 @@ namespace NamesCode.Generator
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            NamesCodeGenerator.Generate();
+            try
+            {
+                NamesCodeGenerator.Generate();
+            }
+            catch (Exception e)
+            {
+                throw new BuildFailedException(e); // to fail to build
+            }
         }
     }
 }
